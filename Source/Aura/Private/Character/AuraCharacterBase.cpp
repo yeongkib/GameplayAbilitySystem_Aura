@@ -26,6 +26,11 @@ AAuraCharacterBase::AAuraCharacterBase()
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 }
 
+UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
 void AAuraCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
