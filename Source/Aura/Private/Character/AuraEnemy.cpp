@@ -13,6 +13,7 @@ AAuraEnemy::AAuraEnemy()
 
     AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
     AbilitySystemComponent->SetIsReplicated(true);
+    AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 
     AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AttributeSet");
 }
@@ -21,7 +22,7 @@ void AAuraEnemy::BeginPlay()
 {
     Super::BeginPlay();
  
-    UE_LOG(LogTemp, Warning, TEXT("BeginPlay"));
+    AbilitySystemComponent->InitAbilityActorInfo(this, this);
  
     GetMesh()->OnBeginCursorOver.AddDynamic(this, &AAuraEnemy::OnMouseOver);
     GetMesh()->OnEndCursorOver.AddDynamic(this,&AAuraEnemy::OnMouseOut);

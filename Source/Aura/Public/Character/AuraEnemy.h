@@ -17,6 +17,8 @@ class AURA_API AAuraEnemy : public AAuraCharacterBase, public IEnemyInterface
 public:
 	AAuraEnemy();
 	virtual void BeginPlay() override;
+
+#pragma region Enemy Interface
 	virtual void HighlightActor() override;
 	virtual void UnHighlightActor() override;
 
@@ -25,4 +27,5 @@ public:
 
 	UFUNCTION()
 	void OnMouseOut(UPrimitiveComponent* TouchedComponent);
+#pragma endregion
 };
