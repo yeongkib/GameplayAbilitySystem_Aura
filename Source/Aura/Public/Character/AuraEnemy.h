@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Character/AuraCharacterBase.h"
+#include <Character/AuraCharacterBase.h>
 #include "Interaction/EnemyInterface.h"
 #include "AuraEnemy.generated.h"
 
@@ -28,4 +28,7 @@ public:
 	UFUNCTION()
 	void OnMouseOut(UPrimitiveComponent* TouchedComponent);
 #pragma endregion
+
+protected:
+	virtual void InitAbilityActorInfo() override;
 };

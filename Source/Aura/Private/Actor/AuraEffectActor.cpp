@@ -3,8 +3,8 @@
 
 #include "Actor/AuraEffectActor.h"
 
-#include "AbilitySystemComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
 
 AAuraEffectActor::AAuraEffectActor()
 {
