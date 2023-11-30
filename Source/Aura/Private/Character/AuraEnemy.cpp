@@ -37,6 +37,11 @@ void AAuraEnemy::OnMouseOut(UPrimitiveComponent* TouchedComponent)
     UnHighlightActor();
 }
 
+int32 AAuraEnemy::GetActorLevel()
+{
+    return Level;
+}
+
 void AAuraEnemy::InitAbilityActorInfo()
 {
     AbilitySystemComponent->InitAbilityActorInfo(this, this);
