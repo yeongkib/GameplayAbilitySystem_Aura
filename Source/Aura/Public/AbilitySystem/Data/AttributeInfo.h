@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AttributeSet.h"
 #include "GameplayTagContainer.h"
 #include "Engine/DataAsset.h"
 #include "AttributeInfo.generated.h"
@@ -23,6 +24,9 @@ struct FAuraAttributeInfo
 
 	UPROPERTY(BlueprintReadOnly)
 	float AttributeValue = 0.f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FGameplayAttribute AttributeToGet;
 };
 
 /**
@@ -34,7 +38,11 @@ class AURA_API UAttributeInfo : public UDataAsset
 	GENERATED_BODY()
 public:
 	FAuraAttributeInfo FindAttributeInfoForTag(const FGameplayTag& AttributeTag, bool bLogNotFound = false) const;
-	
+
+#if WITH_EDITOR
+	UFUNCTION(Category = "Populate Attribute Info", CallInEditor)
+	void PopulateDataAsset();
+#endif
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(TitleProperty="{AttributeName}"))
-	TMap<FString, FAuraAttributeInfo> AttributeInformation;
+	TMap<FName, FAuraAttributeInfo> AttributeInformation;
 };

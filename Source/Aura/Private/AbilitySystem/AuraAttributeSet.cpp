@@ -7,20 +7,49 @@
 #include "GameplayEffectExtension.h"
 #include "GameFramework/Character.h"
 #include "Net/UnrealNetwork.h"
+#include "AuraGameplayTags.h"
+
+UAuraAttributeSet::UAuraAttributeSet()
+{
+#define MAP_TAG_TO_ATTRIBUTE(AttributeType, AttributeName) \
+TagsToAttributeMap.Add(Attributes_##AttributeType##_##AttributeName, Get##AttributeName##Attribute());
+	
+	/* Vital Attributes */
+	MAP_TAG_TO_ATTRIBUTE(Vital, Health);
+	MAP_TAG_TO_ATTRIBUTE(Vital, Mana);
+	
+	/* Primary Attributes */
+	MAP_TAG_TO_ATTRIBUTE(Primary, Strength);
+	MAP_TAG_TO_ATTRIBUTE(Primary, Intelligence);
+	MAP_TAG_TO_ATTRIBUTE(Primary, Resilience);
+	MAP_TAG_TO_ATTRIBUTE(Primary, Vigor);
+ 
+	/* Secondary Attributes */
+	MAP_TAG_TO_ATTRIBUTE(Secondary, Armor);
+	MAP_TAG_TO_ATTRIBUTE(Secondary, ArmorPenetration);
+	MAP_TAG_TO_ATTRIBUTE(Secondary, BlockChance);
+	MAP_TAG_TO_ATTRIBUTE(Secondary, CriticalHitChance);
+	MAP_TAG_TO_ATTRIBUTE(Secondary, CriticalHitDamage);
+	MAP_TAG_TO_ATTRIBUTE(Secondary, CriticalHitResistance);
+	MAP_TAG_TO_ATTRIBUTE(Secondary, HealthRegeneration);
+	MAP_TAG_TO_ATTRIBUTE(Secondary, ManaRegeneration);
+	MAP_TAG_TO_ATTRIBUTE(Secondary, MaxHealth);
+	MAP_TAG_TO_ATTRIBUTE(Secondary, MaxMana);
+
+#undef MAP_TAG_TO_ATTRIBUTE
+}
 
 void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	
 	// Primary Attributes
-	
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Strength, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Intelligence, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Resilience, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Vigor, COND_None, REPNOTIFY_Always);
 
 	// Secondary Attributes
-
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Armor, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, ArmorPenetration, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, BlockChance, COND_None, REPNOTIFY_Always);
@@ -33,7 +62,6 @@ void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, MaxMana, COND_None, REPNOTIFY_Always);
 	
 	// Vital Attributes
-	
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Health, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Mana, COND_None, REPNOTIFY_Always);
 }

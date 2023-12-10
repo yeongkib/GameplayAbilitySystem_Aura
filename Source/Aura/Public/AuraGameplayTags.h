@@ -6,26 +6,39 @@
 #include "GameplayTagContainer.h"
 #include "NativeGameplayTags.h"
 
-namespace AuraGameplayTags
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Vital_Health);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Vital_Mana);
+
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Strength);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Intelligence);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Resilience);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Vigor);
+
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_Armor);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_ArmorPenetration);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_BlockChance);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_CriticalHitChance);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_CriticalHitDamage);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_CriticalHitResistance);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_HealthRegeneration);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_ManaRegeneration);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_MaxHealth);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_MaxMana);
+
+/**
+ * AuraGameplayTags
+ *
+ * Singleton containing native Gameplay Tags
+ */
+struct AURA_API FAuraGameplayTags
 {
-//	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Vital_Health);
-//	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Vital_Mana);
+public:
+	static const FAuraGameplayTags& Get() { return GameplayTags;}
+	static void InitializeNativeGameplayTags();
 
-	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Strength);
-	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Intelligence);
-	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Resilience);
-	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Vigor);
+	static FGameplayTag FindTagByString(const FString& TagString, bool bMatchPartialString);
 
-	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_Armor);
-	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_ArmorPenetration);
-	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_BlockChance);
-	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_CriticalHitChance);
-	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_CriticalHitDamage);
-	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_CriticalHitResistance);
-	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_HealthRegeneration);
-	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_ManaRegeneration);
-	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_MaxHealth);
-	AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_MaxMana);
-
-	AURA_API FGameplayTag FindTagByString(const FString& TagString, bool bMatchPartialString = false);
-}
+	FGameplayTagContainer TagContainer = FGameplayTagContainer();
+private:
+	static FAuraGameplayTags GameplayTags;
+};
