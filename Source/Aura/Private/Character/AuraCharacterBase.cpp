@@ -62,12 +62,12 @@ void AAuraCharacterBase::InitializeDefaultAttributes() const
 
 void AAuraCharacterBase::AddCharacterAbilities()
 {
-	UAuraAbilitySystemComponent* AuraASC = CastChecked<UAuraAbilitySystemComponent>(AbilitySystemComponent);
 	if (!HasAuthority())
 	{
 		return;
 	}
+	
+	UAuraAbilitySystemComponent* AuraASC = CastChecked<UAuraAbilitySystemComponent>(AbilitySystemComponent);
 
 	AuraASC->AddCharacterAbilities(StartupAbilities);
-	
 }

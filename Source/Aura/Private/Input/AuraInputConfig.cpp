@@ -29,8 +29,8 @@ EDataValidationResult FAuraInputAction::IsDataValid(FDataValidationContext& Cont
 	return Result;
 }
 
-EDataValidationResult UAuraInputConfig::IsDataValid(FDataValidationContext& Context, const int Index) const
-{
+EDataValidationResult UAuraInputConfig::IsDataValid(FDataValidationContext& Context) const
+{	
 	EDataValidationResult Result = CombineDataValidationResults(Super::IsDataValid(Context), EDataValidationResult::Valid);
 
 	for (int32 i = 0; i < AbilityInputAction.Num(); ++i)

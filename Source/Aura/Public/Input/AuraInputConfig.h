@@ -36,7 +36,7 @@ class AURA_API UAuraInputConfig : public UDataAsset
 public:
 #if WITH_EDITOR
 	// Validation check if GameplayEffectClass is not empty
-	EDataValidationResult IsDataValid(FDataValidationContext& Context, const int Index) const;
+	virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
 #endif
 	
 	const UInputAction* FindAbilityInputActionForTag(const FGameplayTag& InputTag, bool bLogNotFound) const;
