@@ -15,7 +15,7 @@
 AAuraPlayerController::AAuraPlayerController()
 {
 	bReplicates = true;
-	SplineComponent = CreateDefaultSubobject<USplineComponent>("Spline");
+	Spline = CreateDefaultSubobject<USplineComponent>("Spline");
 }
 
 void AAuraPlayerController::PlayerTick(float DeltaTime)
@@ -80,8 +80,8 @@ void AAuraPlayerController::AutoRun()
 	
 	if (APawn* ControlledPawn = GetPawn())
 	{
-		const FVector LocationOnSpline = SplineComponent->FindLocationClosestToWorldLocation(ControlledPawn->GetActorLocation(), ESplineCoordinateSpace::World);
-		const FVector Direction = SplineComponent->FindDirectionClosestToWorldLocation(LocationOnSpline, ESplineCoordinateSpace::World);
+		const FVector LocationOnSpline = Spline->FindLocationClosestToWorldLocation(ControlledPawn->GetActorLocation(), ESplineCoordinateSpace::World);
+		const FVector Direction = Spline->FindDirectionClosestToWorldLocation(LocationOnSpline, ESplineCoordinateSpace::World);
 		ControlledPawn->AddMovementInput(Direction);
 
 		const float DistanceToDestination = (LocationOnSpline - CachedDestination).Length();
@@ -122,10 +122,10 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 	{
 		if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
 		{
-			SplineComponent->ClearSplinePoints();
+			Spline->ClearSplinePoints();
 			for (const FVector& PointLoc : NavPath->PathPoints)
 			{
-				SplineComponent->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
+				Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
 			}
 			
 			// So in the case where we would run off into the distance
