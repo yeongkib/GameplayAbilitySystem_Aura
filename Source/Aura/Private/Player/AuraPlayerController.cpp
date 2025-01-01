@@ -57,6 +57,8 @@ void AAuraPlayerController::SetupInputComponent()
 
 	UAuraInputComponent* AuraInputComponent = CastChecked<UAuraInputComponent>(InputComponent);
 	AuraInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAuraPlayerController::Move);
+	AuraInputComponent->BindAction(ShiftAction, ETriggerEvent::Started, this, &AAuraPlayerController::ShiftPressed);
+	AuraInputComponent->BindAction(ShiftAction, ETriggerEvent::Completed, this, &AAuraPlayerController::ShiftReleased);
 	AuraInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
 }
 
@@ -113,43 +115,47 @@ void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 
 void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
-	if (!InputTag.MatchesTagExact(InputTag_LMB) || bTargeting)
+	if (IsValid(GetASC()))
 	{
-		if (IsValid(GetASC()))
-		{
-			GetASC()->AbilityInputTagReleased(InputTag);
-		}
+		GetASC()->AbilityInputTagReleased(InputTag);
+	}
+	
+	if (!InputTag.MatchesTagExact(InputTag_LMB))
+	{
 		return;
 	}
 
-	const APawn* ControlledPawn = GetPawn();
-	if (FollowTime <= ShortPressThreshold && IsValid(ControlledPawn))
+	if (!bTargeting && !bShiftKeyDown)
 	{
-		if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
+		const APawn* ControlledPawn = GetPawn();
+		if (FollowTime <= ShortPressThreshold && IsValid(ControlledPawn))
 		{
-			Spline->ClearSplinePoints();
-			for (const FVector& PointLoc : NavPath->PathPoints)
+			if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
 			{
-				Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
-			}
+				Spline->ClearSplinePoints();
+				for (const FVector& PointLoc : NavPath->PathPoints)
+				{
+					Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
+				}
 			
-			// So in the case where we would run off into the distance
-			// is actually a case where we had no path points in the array.
-			// So just check for that and only start running if we get at least one path
-			if (!NavPath->PathPoints.IsEmpty())
-			{
-				CachedDestination = NavPath->PathPoints.Last();
-				bAutoRunning = true;
+				// So in the case where we would run off into the distance
+				// is actually a case where we had no path points in the array.
+				// So just check for that and only start running if we get at least one path
+				if (!NavPath->PathPoints.IsEmpty())
+				{
+					CachedDestination = NavPath->PathPoints.Last();
+					bAutoRunning = true;
+				}
 			}
 		}
+		FollowTime = 0.f;
+		bTargeting = false;
 	}
-	FollowTime = 0.f;
-	bTargeting = false;
 }
 
 void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
-	if (!InputTag.MatchesTagExact(InputTag_LMB) || bTargeting)
+	if (!InputTag.MatchesTagExact(InputTag_LMB) || bTargeting || bShiftKeyDown)
 	{
 		if (IsValid(GetASC()))
 		{
