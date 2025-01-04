@@ -36,7 +36,7 @@ private:
 	bool bHit = false;
 	
 	UPROPERTY(VisibleAnywhere)
-	TObjectPtr<USphereComponent> Sphere = nullptr;
+	TObjectPtr<USphereComponent> SphereComponent = nullptr;
 
 	UPROPERTY(EditAnywhere)
     TObjectPtr<UNiagaraSystem> ImpactEffect = nullptr;
@@ -46,7 +46,4 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<USoundBase> LoopingSound = nullptr;
-
-	UPROPERTY()
-	TObjectPtr<UAudioComponent> LoopingSoundComponent = nullptr;
 };
