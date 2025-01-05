@@ -2,6 +2,8 @@
 
 #include "Actor/AuraProjectile.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Aura/Aura.h"
 #include "Components/SphereComponent.h"
@@ -33,6 +35,12 @@ void AAuraProjectile::BeginPlay()
 	Super::BeginPlay();
 	SetLifeSpan(LifeSpan);
 
+	AActor* MyInstigator = GetInstigator();
+	if (IsValid(MyInstigator))
+	{
+		SphereComponent->IgnoreActorWhenMoving(MyInstigator, true);
+	}
+
 	SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &AAuraProjectile::OnSphereOverlap);
 
 	UGameplayStatics::SpawnSoundAttached(LoopingSound, GetRootComponent(), NAME_None, GetActorLocation(), FRotator::ZeroRotator, EAttachLocation::KeepRelativeOffset, true);
@@ -61,6 +69,10 @@ void AAuraProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, 
 	
 	if (HasAuthority())
 	{
+		if (UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OtherActor))
+		{
+			TargetASC->ApplyGameplayEffectSpecToSelf(*DamageEfectSpecHandle.Data.Get());
+		}
 		Destroy();
 	}
 	else
