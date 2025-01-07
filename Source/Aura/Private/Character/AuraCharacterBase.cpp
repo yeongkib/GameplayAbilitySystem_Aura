@@ -27,7 +27,7 @@ AAuraCharacterBase::AAuraCharacterBase()
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraSpringArm"));
 	SpringArm->SetupAttachment(RootComponent);
 	SpringArm->SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, 50.0f), FRotator(-60.0f, 0.0f, 0.0f));
-	SpringArm->TargetArmLength = 750.f;
+	SpringArm->TargetArmLength = 800.f;
 	SpringArm->bEnableCameraLag = true;
 
 	// so that camera will keep the rotator
