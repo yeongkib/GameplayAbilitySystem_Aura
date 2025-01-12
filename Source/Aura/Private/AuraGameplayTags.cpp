@@ -33,6 +33,8 @@ UE_DEFINE_GAMEPLAY_TAG_COMMENT(InputTag_2, "InputTag.2", "Input Tag for 2 key")
 UE_DEFINE_GAMEPLAY_TAG_COMMENT(InputTag_3, "InputTag.3", "Input Tag for 3 key")
 UE_DEFINE_GAMEPLAY_TAG_COMMENT(InputTag_4, "InputTag.4", "Input Tag for 4 key")
 
+UE_DEFINE_GAMEPLAY_TAG_COMMENT(Damage, "Damage", "Damage")
+
 FAuraGameplayTags FAuraGameplayTags::GameplayTags;
 
 void FAuraGameplayTags::InitializeNativeGameplayTags()
@@ -59,7 +61,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	ADD_TAG_TO_CONTAINER(Secondary, MaxHealth);
 	ADD_TAG_TO_CONTAINER(Secondary, MaxMana);
 
-#undef ADD_TAG_TO_CONTAINE
+#undef ADD_TAG_TO_CONTAINER
 }
 
 FGameplayTag FAuraGameplayTags::FindTagByString(const FString& TagString, bool bMatchPartialString)
