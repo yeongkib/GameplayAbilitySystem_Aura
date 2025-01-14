@@ -35,6 +35,8 @@ UE_DEFINE_GAMEPLAY_TAG_COMMENT(InputTag_4, "InputTag.4", "Input Tag for 4 key")
 
 UE_DEFINE_GAMEPLAY_TAG_COMMENT(Combat_Damage, "Combat.Damage", "Combat Damage")
 
+UE_DEFINE_GAMEPLAY_TAG_COMMENT(Effects_HitReact, "Effects.HitReact", "Tag granted when Hit Reacting")
+
 FAuraGameplayTags FAuraGameplayTags::GameplayTags;
 
 void FAuraGameplayTags::InitializeNativeGameplayTags()

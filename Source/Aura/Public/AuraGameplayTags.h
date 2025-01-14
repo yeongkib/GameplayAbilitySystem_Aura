@@ -34,6 +34,8 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_4);
 
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Combat_Damage);
 
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Effects_HitReact);
+
 /**
  * AuraGameplayTags
  *
