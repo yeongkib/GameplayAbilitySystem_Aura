@@ -32,9 +32,10 @@ public:
 	UFUNCTION()
 	void OnMouseOut(UPrimitiveComponent* TouchedComponent);
 #pragma endregion
-	virtual int32 GetActorLevel() override;
+
 #pragma region Combat Interface
-	
+	virtual int32 GetActorLevel() override;
+	virtual void Die() override;
 #pragma endregion
 
 	UPROPERTY(BlueprintAssignable)
@@ -50,6 +51,9 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Combat")
 	float BaseWalkSpeed = 250.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Combat")
+	float LifeSpan = 5.f;
 
 protected:
 	virtual void InitAbilityActorInfo() override;

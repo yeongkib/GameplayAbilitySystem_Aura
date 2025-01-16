@@ -46,7 +46,7 @@ void UAuraProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocati
 		const FGameplayEffectSpecHandle SpecHandle = SourceASC->MakeOutgoingSpec(DamageEffectClass, GetAbilityLevel(), SourceASC->MakeEffectContext());
 
 		FAuraGameplayTags GameplayTags = FAuraGameplayTags::Get();
-		const float ScaledDamage = Damage.GetValueAtLevel(GetAbilityLevel());
+		const float ScaledDamage = Damage.GetValueAtLevel(10);
 
 		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("FireBolt Damage: %f"), ScaledDamage));
 
