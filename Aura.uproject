@@ -13,7 +13,8 @@
 				"GameplayAbilities",
 				"CommonUI",
 				"CoreUObject",
-				"EnhancedInput"
+				"EnhancedInput",
+				"UMG"
 			]
 		}
 	],
