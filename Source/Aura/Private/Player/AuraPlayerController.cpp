@@ -33,7 +33,7 @@ const FHitResult& AAuraPlayerController::GetCursorHit() const
 	return CursorHit;
 }
 
-void AAuraPlayerController::ShowDamageNumber_Implementation(float DamageAmount, ACharacter* TargetCharacter)
+void AAuraPlayerController::ShowDamageNumber_Implementation(float DamageAmount, ACharacter* TargetCharacter, bool bBlockedHit, bool bCriticalHit)
 {
 	if (IsValid(TargetCharacter) && DamageTextComponentClass)
 	{
@@ -44,7 +44,7 @@ void AAuraPlayerController::ShowDamageNumber_Implementation(float DamageAmount, 
 		// Attach to rootcomponent, and detach it by keepworld, so that it will stay in the posiion
 		DamageText->AttachToComponent(TargetCharacter->GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
 		DamageText->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
-		DamageText->SetDamageText(DamageAmount);
+		DamageText->SetDamageText(DamageAmount, bBlockedHit, bCriticalHit);
 	}
 }
 
