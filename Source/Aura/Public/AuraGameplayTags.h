@@ -32,7 +32,8 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_2);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_3);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_4);
 
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(Combat_Damage);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Tag_Damage);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Tag_Damage_Fire);
 
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Effects_HitReact);
 
@@ -50,6 +51,8 @@ public:
 	static FGameplayTag FindTagByString(const FString& TagString, bool bMatchPartialString);
 
 	FGameplayTagContainer TagContainer = FGameplayTagContainer();
+
+	static FGameplayTagContainer DamageTypes;
 private:
 	static FAuraGameplayTags GameplayTags;
 };

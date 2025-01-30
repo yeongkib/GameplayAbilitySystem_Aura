@@ -55,12 +55,12 @@ void UAuraProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocati
 		
 		const FGameplayEffectSpecHandle SpecHandle = SourceASC->MakeOutgoingSpec(DamageEffectClass, GetAbilityLevel(), EffectContextHandle);
 
-		FAuraGameplayTags GameplayTags = FAuraGameplayTags::Get();
-		const float ScaledDamage = Damage.GetValueAtLevel(10);
-
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("FireBolt Damage: %f"), ScaledDamage));
-
-		SpecHandle.Data.Get()->SetSetByCallerMagnitude(Combat_Damage, ScaledDamage);
+		for (const TTuple<FGameplayTag, FScalableFloat>& Pair : DamageTypes)
+		{
+			const float ScaledDamage = Pair.Value.GetValueAtLevel(GetAbilityLevel());
+			UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, Pair.Key, ScaledDamage);
+		}
+		
 		Projectile->DamageEfectSpecHandle = SpecHandle;
 
 		Projectile->FinishSpawning(SpawnTransform);
