@@ -25,6 +25,12 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_ManaRegeneration);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_MaxHealth);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_MaxMana);
 
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance_Fire);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance_Lighting);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance_Arcane);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Resistance_Physical);
+
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_LMB);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_RMB);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_1);
@@ -34,6 +40,9 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_4);
 
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Tag_Damage);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Tag_Damage_Fire);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Tag_Damage_Lightning);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Tag_Damage_Arcane);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(Tag_Damage_Physical);
 
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Effects_HitReact);
 
@@ -53,6 +62,7 @@ public:
 	FGameplayTagContainer TagContainer = FGameplayTagContainer();
 
 	static FGameplayTagContainer DamageTypes;
+	static FGameplayTagContainer ResistanceTypes;
 private:
 	static FAuraGameplayTags GameplayTags;
 };

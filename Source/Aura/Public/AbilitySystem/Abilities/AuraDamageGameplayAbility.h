@@ -6,6 +6,17 @@
 #include "AbilitySystem/Abilities/AuraGameplayAbility.h"
 #include "AuraDamageGameplayAbility.generated.h"
 
+USTRUCT(BlueprintType)
+struct FDamageRange
+{
+	GENERATED_BODY()
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "User|Damage")
+	FScalableFloat DamageMin = FScalableFloat();
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "User|Damage")
+	FScalableFloat DamageMax = FScalableFloat();	
+};
+
 /**
  * 
  */
@@ -18,5 +29,5 @@ protected:
 	TSubclassOf<UGameplayEffect> DamageEffectClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Damage")
-	TMap<FGameplayTag, FScalableFloat> DamageTypes;
+	TMap<FGameplayTag, FDamageRange> DamageTypes;
 };

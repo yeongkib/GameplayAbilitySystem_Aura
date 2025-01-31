@@ -24,6 +24,12 @@
 	DEFINE_GAMEPLAY_TAG(Secondary, MaxHealth, "Maximum amount of Health obtainable");
 	DEFINE_GAMEPLAY_TAG(Secondary, MaxMana, "Maximum amount of Mana obtainable");
 
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Resistance, "Attributes.Resistance", "Resistance Attributes")
+	DEFINE_GAMEPLAY_TAG(Resistance, Fire, "Resistance to Fire damage");
+	DEFINE_GAMEPLAY_TAG(Resistance, Lighting, "Resistance to Lightning damage");
+	DEFINE_GAMEPLAY_TAG(Resistance, Arcane, "Resistance to Arcane damage");
+	DEFINE_GAMEPLAY_TAG(Resistance, Physical, "Resistance to physical damage");
+
 #undef DEFINE_GAMEPLAY_TAG
 
 UE_DEFINE_GAMEPLAY_TAG_COMMENT(InputTag_LMB, "InputTag.LMB", "Input Tag for Left Mouse Button")
@@ -35,11 +41,15 @@ UE_DEFINE_GAMEPLAY_TAG_COMMENT(InputTag_4, "InputTag.4", "Input Tag for 4 key")
 
 UE_DEFINE_GAMEPLAY_TAG_COMMENT(Tag_Damage, "Damage", "Damage")
 UE_DEFINE_GAMEPLAY_TAG_COMMENT(Tag_Damage_Fire, "Damage.Fire", "Fire Damage Type")
+UE_DEFINE_GAMEPLAY_TAG_COMMENT(Tag_Damage_Lightning, "Damage.Lightning", "Lightning Damage Type")
+UE_DEFINE_GAMEPLAY_TAG_COMMENT(Tag_Damage_Arcane, "Damage.Arcane", "Arcane Damage Type")
+UE_DEFINE_GAMEPLAY_TAG_COMMENT(Tag_Damage_Physical, "Damage.Physical", "Physical Damage Type")
 
 UE_DEFINE_GAMEPLAY_TAG_COMMENT(Effects_HitReact, "Effects.HitReact", "Tag granted when Hit Reacting")
 
 FAuraGameplayTags FAuraGameplayTags::GameplayTags;
 FGameplayTagContainer FAuraGameplayTags::DamageTypes;
+FGameplayTagContainer FAuraGameplayTags::ResistanceTypes;
 
 void FAuraGameplayTags::InitializeNativeGameplayTags()
 {
@@ -68,6 +78,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 #undef ADD_TAG_TO_CONTAINER
 
 	DamageTypes = UGameplayTagsManager::Get().RequestGameplayTagChildren(Tag_Damage);
+	ResistanceTypes = UGameplayTagsManager::Get().RequestGameplayTagChildren(Attributes_Resistance);
 }
 
 FGameplayTag FAuraGameplayTags::FindTagByString(const FString& TagString, bool bMatchPartialString)
