@@ -54,7 +54,14 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(Effects_HitReact);
 struct AURA_API FAuraGameplayTags
 {
 public:
-	static const FAuraGameplayTags& Get() { return GameplayTags;}
+	static const FAuraGameplayTags& Get()
+	{
+		if (!GameplayTags.bIsInitialized)
+		{
+			InitializeNativeGameplayTags();
+		}
+		return GameplayTags;
+	}
 	static void InitializeNativeGameplayTags();
 
 	static FGameplayTag FindTagByString(const FString& TagString, bool bMatchPartialString);
@@ -64,5 +71,6 @@ public:
 	static FGameplayTagContainer DamageTypes;
 	static FGameplayTagContainer ResistanceTypes;
 private:
+	static bool bIsInitialized;
 	static FAuraGameplayTags GameplayTags;
 };

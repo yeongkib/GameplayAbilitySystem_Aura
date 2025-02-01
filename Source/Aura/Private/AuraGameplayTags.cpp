@@ -50,6 +50,7 @@ UE_DEFINE_GAMEPLAY_TAG_COMMENT(Effects_HitReact, "Effects.HitReact", "Tag grante
 FAuraGameplayTags FAuraGameplayTags::GameplayTags;
 FGameplayTagContainer FAuraGameplayTags::DamageTypes;
 FGameplayTagContainer FAuraGameplayTags::ResistanceTypes;
+bool FAuraGameplayTags::bIsInitialized = false;
 
 void FAuraGameplayTags::InitializeNativeGameplayTags()
 {
@@ -84,6 +85,8 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 
 	DamageTypes = UGameplayTagsManager::Get().RequestGameplayTagChildren(Tag_Damage);
 	ResistanceTypes = UGameplayTagsManager::Get().RequestGameplayTagChildren(Attributes_Resistance);
+
+	bIsInitialized = true;
 }
 
 FGameplayTag FAuraGameplayTags::FindTagByString(const FString& TagString, bool bMatchPartialString)
