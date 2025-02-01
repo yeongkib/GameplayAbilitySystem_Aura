@@ -25,10 +25,10 @@
 	DEFINE_GAMEPLAY_TAG(Secondary, MaxMana, "Maximum amount of Mana obtainable");
 
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Resistance, "Attributes.Resistance", "Resistance Attributes")
-	DEFINE_GAMEPLAY_TAG(Resistance, Fire, "Resistance to Fire damage");
-	DEFINE_GAMEPLAY_TAG(Resistance, Lighting, "Resistance to Lightning damage");
-	DEFINE_GAMEPLAY_TAG(Resistance, Arcane, "Resistance to Arcane damage");
-	DEFINE_GAMEPLAY_TAG(Resistance, Physical, "Resistance to physical damage");
+	DEFINE_GAMEPLAY_TAG(Resistance, FireResistance, "Resistance to Fire damage");
+	DEFINE_GAMEPLAY_TAG(Resistance, LightningResistance, "Resistance to Lightning damage");
+	DEFINE_GAMEPLAY_TAG(Resistance, ArcaneResistance, "Resistance to Arcane damage");
+	DEFINE_GAMEPLAY_TAG(Resistance, PhysicalResistance, "Resistance to physical damage");
 
 #undef DEFINE_GAMEPLAY_TAG
 
@@ -74,6 +74,11 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	ADD_TAG_TO_CONTAINER(Secondary, ManaRegeneration);
 	ADD_TAG_TO_CONTAINER(Secondary, MaxHealth);
 	ADD_TAG_TO_CONTAINER(Secondary, MaxMana);
+
+	ADD_TAG_TO_CONTAINER(Resistance, FireResistance);
+	ADD_TAG_TO_CONTAINER(Resistance, LightningResistance);
+	ADD_TAG_TO_CONTAINER(Resistance, ArcaneResistance);
+	ADD_TAG_TO_CONTAINER(Resistance, PhysicalResistance);
 
 #undef ADD_TAG_TO_CONTAINER
 

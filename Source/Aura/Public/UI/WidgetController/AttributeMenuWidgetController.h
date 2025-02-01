@@ -31,5 +31,5 @@ protected:
 	TObjectPtr<UAttributeInfo> AttributeInfo;
 
 private:
-	void BroadcastAttributeInfo(const FGameplayTag& Tag) const;
+	void BroadcastAttributeInfo(const FAuraAttributeInfo& Info) const;
 };

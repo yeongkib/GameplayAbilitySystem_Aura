@@ -39,10 +39,14 @@ class AURA_API UAttributeInfo : public UDataAsset
 public:
 	FAuraAttributeInfo FindAttributeInfoForTag(const FGameplayTag& AttributeTag, bool bLogNotFound = false) const;
 
+	//~ Begin UObject Interface
+	virtual void PostLoad() override;
+	//~ End UObject Interface
+	
 #if WITH_EDITOR
 	UFUNCTION(Category = "Populate Attribute Info", CallInEditor)
 	void PopulateDataAsset();
 #endif
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(TitleProperty="{AttributeName}"))
-	TMap<FName, FAuraAttributeInfo> AttributeInformation;
+	TArray<FAuraAttributeInfo> AttributeInformation;
 };
