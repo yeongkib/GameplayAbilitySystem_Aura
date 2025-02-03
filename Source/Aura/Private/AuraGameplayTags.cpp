@@ -2,6 +2,8 @@
 
 #include "AuraGameplayTags.h"
 
+FAuraNativeGameplayTag TAG_Attributes_Vital_Health("Tag.Attributes.Vital.Health");
+
 #define DEFINE_GAMEPLAY_TAG(AttributeType, AttributeName, Comment) \
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_##AttributeType##_##AttributeName, *FString((FString("Attributes.") + #AttributeType + FString(".") + #AttributeName)), Comment)
 	

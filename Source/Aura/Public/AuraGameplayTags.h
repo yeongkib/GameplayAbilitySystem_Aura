@@ -3,9 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AuraNativeGameplayTag.h"
 #include "GameplayTagContainer.h"
 #include "NativeGameplayTags.h"
 
+extern FAuraNativeGameplayTag TAG_Attributes_Vital_Health;
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Vital_Health);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Vital_Mana);
 

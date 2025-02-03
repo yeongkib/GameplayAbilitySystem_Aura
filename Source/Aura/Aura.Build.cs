@@ -20,6 +20,8 @@ public class Aura : ModuleRules
 			"CommonInput",
 			"UMG",
 			"MotionWarping",
+			"StateTreeModule",
+			"GameplayStateTreeModule",
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[]
@@ -28,6 +30,7 @@ public class Aura : ModuleRules
 			"GameplayTasks",
 			"NavigationSystem",
 			"Niagara",
+			"AIModule",
 		});
 
 		// Uncomment if you are using Slate UI

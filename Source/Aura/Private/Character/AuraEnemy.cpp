@@ -3,6 +3,7 @@
 
 #include "Character/AuraEnemy.h"
 
+#include "AuraAIController.h"
 #include "AuraGameplayTags.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAbilitySystemLibrary.h"
@@ -64,7 +65,19 @@ void AAuraEnemy::BeginPlay()
         OnMaxHealthChanged.Broadcast(AuraAs->GetMaxHealth());
     }
 }
- 
+
+void AAuraEnemy::PossessedBy(AController* NewController)
+{
+    Super::PossessedBy(NewController);
+
+    if (!HasAuthority())
+    {
+        return;
+    }
+    
+    AuraAIController = Cast<AAuraAIController>(NewController);
+}
+
 void AAuraEnemy::OnMouseOver(UPrimitiveComponent* TouchedComponent)
 {
     HighlightActor();
