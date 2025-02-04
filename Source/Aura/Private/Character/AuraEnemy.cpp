@@ -57,7 +57,7 @@ void AAuraEnemy::BeginPlay()
             {
                 OnMaxHealthChanged.Broadcast(Data.NewValue);
             });
-        AbilitySystemComponent->RegisterGameplayTagEvent(Effects_HitReact, EGameplayTagEventType::NewOrRemoved).AddUObject(
+        AbilitySystemComponent->RegisterGameplayTagEvent(TAG_Effects_HitReact, EGameplayTagEventType::NewOrRemoved).AddUObject(
             this,
             &AAuraEnemy::HitReactTagChanged);
 

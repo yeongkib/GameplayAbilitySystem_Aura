@@ -8,7 +8,7 @@
 class AURA_API FAuraNativeGameplayTag
 {
 public:
-	FAuraNativeGameplayTag(FName InTagName) : TagName(InTagName){};
+	FAuraNativeGameplayTag(FName InTagName, FName Comment = NAME_None) : TagName(InTagName){};
 
 	operator FGameplayTag() const
 	{

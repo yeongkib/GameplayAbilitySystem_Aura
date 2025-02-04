@@ -124,7 +124,7 @@ void AAuraPlayerController::CursorTrace()
 
 void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 {
-	if (InputTag.MatchesTagExact(InputTag_LMB))
+	if (InputTag.MatchesTagExact(TAG_InputTag_LMB))
 	{
 		bTargeting = Cast<IEnemyInterface>(CursorHit.GetActor()) ? true : false;
 		bAutoRunning = false;
@@ -138,7 +138,7 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 		GetASC()->AbilityInputTagReleased(InputTag);
 	}
 	
-	if (!InputTag.MatchesTagExact(InputTag_LMB))
+	if (!InputTag.MatchesTagExact(TAG_InputTag_LMB))
 	{
 		return;
 	}
@@ -173,7 +173,7 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 
 void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
-	if (!InputTag.MatchesTagExact(InputTag_LMB) || bTargeting || bShiftKeyDown)
+	if (!InputTag.MatchesTagExact(TAG_InputTag_LMB) || bTargeting || bShiftKeyDown)
 	{
 		if (IsValid(GetASC()))
 		{

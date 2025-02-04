@@ -16,7 +16,7 @@
 UAuraAttributeSet::UAuraAttributeSet()
 {
 #define MAP_TAG_TO_ATTRIBUTE(AttributeType, AttributeName) \
-TagsToAttributeMap.Add(Attributes_##AttributeType##_##AttributeName, Get##AttributeName##Attribute());
+TagsToAttributeMap.Add(TAG_Attributes_##AttributeType##_##AttributeName, Get##AttributeName##Attribute());
 	
 	/* Vital Attributes */
 	MAP_TAG_TO_ATTRIBUTE(Vital, Health);
@@ -156,7 +156,7 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 			else // if (!bFatal)
 			{
 				FGameplayTagContainer TagContainer;
-				TagContainer.AddTag(Effects_HitReact);
+				TagContainer.AddTag(TAG_Effects_HitReact);
 				Props.TargetASC->TryActivateAbilitiesByTag(TagContainer);
 			}
 

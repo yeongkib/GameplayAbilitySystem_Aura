@@ -41,17 +41,17 @@ struct DamageStatics
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, ArcaneResistance, Target, false);
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, PhysicalResistance, Target, false);
 
-		TagsToCaputreDefs.Add(Attributes_Secondary_Armor, ArmorDef);
-		TagsToCaputreDefs.Add(Attributes_Secondary_BlockChance, BlockChanceDef);
-		TagsToCaputreDefs.Add(Attributes_Secondary_ArmorPenetration, ArmorPenetrationDef);
-		TagsToCaputreDefs.Add(Attributes_Secondary_CriticalHitChance, CriticalHitChanceDef);
-		TagsToCaputreDefs.Add(Attributes_Secondary_CriticalHitDamage, CriticalHitDamageDef);
+		TagsToCaputreDefs.Add(TAG_Attributes_Secondary_Armor, ArmorDef);
+		TagsToCaputreDefs.Add(TAG_Attributes_Secondary_BlockChance, BlockChanceDef);
+		TagsToCaputreDefs.Add(TAG_Attributes_Secondary_ArmorPenetration, ArmorPenetrationDef);
+		TagsToCaputreDefs.Add(TAG_Attributes_Secondary_CriticalHitChance, CriticalHitChanceDef);
+		TagsToCaputreDefs.Add(TAG_Attributes_Secondary_CriticalHitDamage, CriticalHitDamageDef);
 		
-		TagsToCaputreDefs.Add(Attributes_Secondary_CriticalHitResistance, CriticalHitResistanceDef);
-		TagsToCaputreDefs.Add(Attributes_Resistance_FireResistance, FireResistanceDef);
-		TagsToCaputreDefs.Add(Attributes_Resistance_LightningResistance, LightningResistanceDef);
-		TagsToCaputreDefs.Add(Attributes_Resistance_ArcaneResistance, ArcaneResistanceDef);
-		TagsToCaputreDefs.Add(Attributes_Resistance_PhysicalResistance, PhysicalResistanceDef);
+		TagsToCaputreDefs.Add(TAG_Attributes_Secondary_CriticalHitResistance, CriticalHitResistanceDef);
+		TagsToCaputreDefs.Add(TAG_Attributes_Resistance_FireResistance, FireResistanceDef);
+		TagsToCaputreDefs.Add(TAG_Attributes_Resistance_LightningResistance, LightningResistanceDef);
+		TagsToCaputreDefs.Add(TAG_Attributes_Resistance_ArcaneResistance, ArcaneResistanceDef);
+		TagsToCaputreDefs.Add(TAG_Attributes_Resistance_PhysicalResistance, PhysicalResistanceDef);
 	}
 };
 

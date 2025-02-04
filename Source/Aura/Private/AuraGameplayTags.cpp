@@ -2,10 +2,9 @@
 
 #include "AuraGameplayTags.h"
 
-FAuraNativeGameplayTag TAG_Attributes_Vital_Health("Tag.Attributes.Vital.Health");
-
 #define DEFINE_GAMEPLAY_TAG(AttributeType, AttributeName, Comment) \
-	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_##AttributeType##_##AttributeName, *FString((FString("Attributes.") + #AttributeType + FString(".") + #AttributeName)), Comment)
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_##AttributeType##_##AttributeName, *FString((FString("Attributes.") + #AttributeType + FString(".") + #AttributeName)), Comment) \
+	FAuraNativeGameplayTag TAG_Attributes_##AttributeType##_##AttributeName("Attributes." #AttributeType "." #AttributeName);
 	
 	DEFINE_GAMEPLAY_TAG(Vital, Health, "Amount of damage a player can take before death");
 	DEFINE_GAMEPLAY_TAG(Vital, Mana, "A resource used to cast spells");
@@ -27,6 +26,8 @@ FAuraNativeGameplayTag TAG_Attributes_Vital_Health("Tag.Attributes.Vital.Health"
 	DEFINE_GAMEPLAY_TAG(Secondary, MaxMana, "Maximum amount of Mana obtainable");
 
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Resistance, "Attributes.Resistance", "Resistance Attributes")
+	FAuraNativeGameplayTag TAG_Attributes_Resistance("Attributes.Resistance", "Resistance Attributes");
+
 	DEFINE_GAMEPLAY_TAG(Resistance, FireResistance, "Resistance to Fire damage");
 	DEFINE_GAMEPLAY_TAG(Resistance, LightningResistance, "Resistance to Lightning damage");
 	DEFINE_GAMEPLAY_TAG(Resistance, ArcaneResistance, "Resistance to Arcane damage");
@@ -49,6 +50,21 @@ UE_DEFINE_GAMEPLAY_TAG_COMMENT(Tag_Damage_Physical, "Damage.Physical", "Physical
 
 UE_DEFINE_GAMEPLAY_TAG_COMMENT(Effects_HitReact, "Effects.HitReact", "Tag granted when Hit Reacting")
 
+FAuraNativeGameplayTag TAG_InputTag_LMB("InputTag.LMB", "Input Tag for Left Mouse Button");
+FAuraNativeGameplayTag TAG_InputTag_RMB("InputTag.RMB", "Input Tag for Right Mouse Button");
+FAuraNativeGameplayTag TAG_InputTag_1("InputTag.1", "Input Tag for 1 key");
+FAuraNativeGameplayTag TAG_InputTag_2("InputTag.2", "Input Tag for 2 key");
+FAuraNativeGameplayTag TAG_InputTag_3("InputTag.3", "Input Tag for 3 key");
+FAuraNativeGameplayTag TAG_InputTag_4("InputTag.4", "Input Tag for 4 key");
+
+// FAuraNativeGameplayTag Tag_Damage("Damage", "Damage");
+// FAuraNativeGameplayTag Tag_Damage_Fire("Damage.Fire", "Fire Damage Type");
+// FAuraNativeGameplayTag Tag_Damage_Lightning("Damage.Lightning", "Lightning Damage Type");
+// FAuraNativeGameplayTag Tag_Damage_Arcane("Damage.Arcane", "Arcane Damage Type");
+// FAuraNativeGameplayTag Tag_Damage_Physical("Damage.Physical", "Physical Damage Type");
+
+FAuraNativeGameplayTag TAG_Effects_HitReact("Effects.HitReact", "Tag granted when Hit Reacting");
+
 FAuraGameplayTags FAuraGameplayTags::GameplayTags;
 FGameplayTagContainer FAuraGameplayTags::DamageTypes;
 FGameplayTagContainer FAuraGameplayTags::ResistanceTypes;
@@ -58,6 +74,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 {
 #define ADD_TAG_TO_CONTAINER(AttributeType, AttributeName) \
 	GameplayTags.TagContainer.AddTag(Attributes_##AttributeType##_##AttributeName);
+//	GameplayTags.TagContainer.AddTag(TAG_Attributes_##AttributeType##_##AttributeName);
 
 	ADD_TAG_TO_CONTAINER(Vital, Health);
 	ADD_TAG_TO_CONTAINER(Vital, Mana);
@@ -86,31 +103,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 #undef ADD_TAG_TO_CONTAINER
 
 	DamageTypes = UGameplayTagsManager::Get().RequestGameplayTagChildren(Tag_Damage);
-	ResistanceTypes = UGameplayTagsManager::Get().RequestGameplayTagChildren(Attributes_Resistance);
+	ResistanceTypes = UGameplayTagsManager::Get().RequestGameplayTagChildren(TAG_Attributes_Resistance);
 
 	bIsInitialized = true;
-}
-
-FGameplayTag FAuraGameplayTags::FindTagByString(const FString& TagString, bool bMatchPartialString)
-{
-	const UGameplayTagsManager& Manager = UGameplayTagsManager::Get();
-	FGameplayTag Tag = Manager.RequestGameplayTag(FName(*TagString), false);
-
-	if (!Tag.IsValid() && bMatchPartialString)
-	{
-		FGameplayTagContainer AllTags;
-		Manager.RequestAllGameplayTags(AllTags, true);
-
-		for (const FGameplayTag& TestTag : AllTags)
-		{
-			if (TestTag.ToString().Contains(TagString))
-			{
-				UE_LOG(LogTemp, Display, TEXT("Could not find exact match for tag [%s] but found partial match on tag [%s]."), *TagString, *TestTag.ToString());
-				Tag = TestTag;
-				break;
-			}
-		}
-	}
-
-	return Tag;
 }

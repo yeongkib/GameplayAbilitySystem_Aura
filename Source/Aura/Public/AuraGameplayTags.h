@@ -7,7 +7,6 @@
 #include "GameplayTagContainer.h"
 #include "NativeGameplayTags.h"
 
-extern FAuraNativeGameplayTag TAG_Attributes_Vital_Health;
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Vital_Health);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Vital_Mana);
 
@@ -40,13 +39,47 @@ UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_2);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_3);
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_4);
 
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(Tag_Damage);
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(Tag_Damage_Fire);
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(Tag_Damage_Lightning);
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(Tag_Damage_Arcane);
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(Tag_Damage_Physical);
-
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(Effects_HitReact);
+
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Vital_Health;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Vital_Mana;
+
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Primary_Strength;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Primary_Intelligence;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Primary_Resilience;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Primary_Vigor;
+
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Secondary_Armor;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Secondary_ArmorPenetration;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Secondary_BlockChance;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Secondary_CriticalHitChance;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Secondary_CriticalHitDamage;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Secondary_CriticalHitResistance;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Secondary_HealthRegeneration;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Secondary_ManaRegeneration;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Secondary_MaxHealth;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Secondary_MaxMana;
+
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Resistance;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Resistance_FireResistance;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Resistance_LightningResistance;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Resistance_ArcaneResistance;
+extern AURA_API FAuraNativeGameplayTag TAG_Attributes_Resistance_PhysicalResistance;
+
+extern AURA_API FAuraNativeGameplayTag TAG_InputTag_LMB;
+extern AURA_API FAuraNativeGameplayTag TAG_InputTag_RMB;
+extern AURA_API FAuraNativeGameplayTag TAG_InputTag_1;
+extern AURA_API FAuraNativeGameplayTag TAG_InputTag_2;
+extern AURA_API FAuraNativeGameplayTag TAG_InputTag_3;
+extern AURA_API FAuraNativeGameplayTag TAG_InputTag_4;
+
+// extern AURA_API FAuraNativeGameplayTag Tag_Damage;
+// extern AURA_API FAuraNativeGameplayTag Tag_Damage_Fire;
+// extern AURA_API FAuraNativeGameplayTag Tag_Damage_Lightning;
+// extern AURA_API FAuraNativeGameplayTag Tag_Damage_Arcane;
+// extern AURA_API FAuraNativeGameplayTag Tag_Damage_Physical;
+
+extern AURA_API FAuraNativeGameplayTag TAG_Effects_HitReact;
 
 /**
  * AuraGameplayTags
@@ -65,8 +98,6 @@ public:
 		return GameplayTags;
 	}
 	static void InitializeNativeGameplayTags();
-
-	static FGameplayTag FindTagByString(const FString& TagString, bool bMatchPartialString);
 
 	FGameplayTagContainer TagContainer = FGameplayTagContainer();
 
