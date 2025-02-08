@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "GameplayTagContainer.h"
+#include "GenericTeamAgentInterface.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "AuraPlayerController.generated.h"
 
@@ -21,11 +22,11 @@ class USplineComponent;
  * 
  */
 UCLASS()
-class AURA_API AAuraPlayerController : public APlayerController
+class AURA_API AAuraPlayerController : public APlayerController, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 public:
-	AAuraPlayerController();
+	AAuraPlayerController(const FObjectInitializer& ObjectInitializer);
 	virtual void PlayerTick(float DeltaTime) override;
 	const FHitResult& GetCursorHit() const;
 
@@ -35,6 +36,15 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
+
+#pragma region IGenericTeamAgentInterface
+public:
+	virtual void SetGenericTeamId(const FGenericTeamId& NewTeamId) override;
+	virtual FGenericTeamId GetGenericTeamId() const override { return TeamId; }
+ 
+private:
+	FGenericTeamId TeamId;
+#pragma endregion
 
 private:
 	UPROPERTY(EditAnywhere, Category="Input")

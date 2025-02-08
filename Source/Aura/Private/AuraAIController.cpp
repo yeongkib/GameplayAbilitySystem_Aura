@@ -3,7 +3,9 @@
 
 #include "AuraAIController.h"
 
-AAuraAIController::AAuraAIController()
+AAuraAIController::AAuraAIController(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
-	StateTreeComponent = CreateDefaultSubobject<UStateTreeAIComponent>("StateTreeComponent");
+	SetGenericTeamId(FGenericTeamId(2));
+	StateTreeAIComponent = CreateDefaultSubobject<UStateTreeAIComponent>("StateTreeAIComponent");
 }

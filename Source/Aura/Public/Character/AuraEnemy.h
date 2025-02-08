@@ -6,6 +6,8 @@
 #include "CoreMinimal.h"
 #include "AbilitySystem/Data/CharacterClassInfo.h"
 #include <Character/AuraCharacterBase.h>
+
+#include "GenericTeamAgentInterface.h"
 #include "Interaction/EnemyInterface.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
 #include "AuraEnemy.generated.h"
@@ -16,7 +18,7 @@ class AAuraAIController;
  * 
  */
 UCLASS()
-class AURA_API AAuraEnemy : public AAuraCharacterBase, public IEnemyInterface
+class AURA_API AAuraEnemy : public AAuraCharacterBase, public IEnemyInterface, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 public:
@@ -40,6 +42,16 @@ public:
 	virtual void Die() override;
 #pragma endregion
 
+#pragma region IGenericTeamAgentInterface
+public:
+	virtual void SetGenericTeamId(const FGenericTeamId& NewTeamId) override { /** Do Nothing */};
+	virtual FGenericTeamId GetGenericTeamId() const override { return TeamId; }
+ 
+private:
+	FGenericTeamId TeamId;
+#pragma endregion
+
+public:
 	UPROPERTY(BlueprintAssignable)
 	FOnAttributeChangedSignature OnHealthChanged;
 

@@ -26,6 +26,10 @@ void AAuraCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
+	if (IGenericTeamAgentInterface* ControllerAsTeamProvider = Cast<IGenericTeamAgentInterface>(NewController))
+	{
+		TeamId = ControllerAsTeamProvider->GetGenericTeamId();
+	}
 	// Init ability actor info for the server
 	InitAbilityActorInfo();
 	AddCharacterAbilities();

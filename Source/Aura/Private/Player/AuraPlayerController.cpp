@@ -5,7 +5,6 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AuraGameplayTags.h"
 #include "EnhancedInputSubsystems.h"
-#include "MovieSceneTracksComponentTypes.h"
 #include "NavigationPath.h"
 #include "NavigationSystem.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
@@ -15,10 +14,12 @@
 #include "Interaction/EnemyInterface.h"
 #include "UI/Widget/DamageTextComponent.h"
 
-AAuraPlayerController::AAuraPlayerController()
+AAuraPlayerController::AAuraPlayerController(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	bReplicates = true;
 	Spline = CreateDefaultSubobject<USplineComponent>("Spline");
+	SetGenericTeamId(FGenericTeamId(1));
 }
 
 void AAuraPlayerController::PlayerTick(float DeltaTime)
@@ -79,6 +80,16 @@ void AAuraPlayerController::SetupInputComponent()
 	AuraInputComponent->BindAction(ShiftAction, ETriggerEvent::Completed, this, &AAuraPlayerController::ShiftReleased);
 	AuraInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
 }
+
+#pragma region IGenericTeamAgentInterface
+void AAuraPlayerController::SetGenericTeamId(const FGenericTeamId& NewTeamId)
+{
+	if (TeamId != NewTeamId)
+	{
+		TeamId = NewTeamId;
+	}
+}
+#pragma endregion
 
 void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 {

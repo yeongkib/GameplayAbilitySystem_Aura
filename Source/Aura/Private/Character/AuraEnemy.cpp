@@ -81,6 +81,11 @@ void AAuraEnemy::PossessedBy(AController* NewController)
     }
     
     AuraAIController = Cast<AAuraAIController>(NewController);
+
+    if (IGenericTeamAgentInterface* ControllerAsTeamProvider = Cast<IGenericTeamAgentInterface>(NewController))
+    {
+        TeamId = ControllerAsTeamProvider->GetGenericTeamId();
+    }
 }
 
 void AAuraEnemy::OnMouseOver(UPrimitiveComponent* TouchedComponent)
