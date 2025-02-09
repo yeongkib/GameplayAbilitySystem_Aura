@@ -16,8 +16,13 @@ class AURA_API AAuraCharacter : public AAuraCharacterBase, public IGenericTeamAg
 	GENERATED_BODY()
 public:
 	AAuraCharacter();
+	virtual void PostInitializeComponents() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;
+
+private:
+	void SetupStimulusSource();
 
 #pragma region IGenericTeamAgentInterface
 public:
@@ -27,11 +32,11 @@ public:
 private:
 	FGenericTeamId TeamId;
 #pragma endregion
-	
-#pragma endregion
-	virtual int32 GetActorLevel() override;
-#pragma region Combat Interface
 
 private:
+	virtual int32 GetActorLevel() override;
 	virtual void InitAbilityActorInfo() override;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UAIPerceptionStimuliSourceComponent> StimulusSource;
 };

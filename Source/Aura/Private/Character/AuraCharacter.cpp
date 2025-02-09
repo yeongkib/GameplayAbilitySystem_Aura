@@ -6,6 +6,9 @@
 #include "AbilitySystemComponent.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Perception/AIPerceptionStimuliSourceComponent.h"
+#include "Perception/AISense_Hearing.h"
+#include "Perception/AISense_Sight.h"
 #include "Player/AuraPlayerController.h"
 #include "Player/AuraPlayerState.h"
 #include "UI/HUD/AuraHUD.h"
@@ -20,6 +23,23 @@ AAuraCharacter::AAuraCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationRoll = false;
 	bUseControllerRotationYaw = false;
+	
+	StimulusSource = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>(TEXT("Stimulus"));
+}
+
+void AAuraCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	SetupStimulusSource();
+}
+
+void AAuraCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+	if (StimulusSource != nullptr)
+	{
+		StimulusSource->UnregisterFromPerceptionSystem();
+	}
 }
 
 void AAuraCharacter::PossessedBy(AController* NewController)
@@ -48,6 +68,15 @@ void AAuraCharacter::OnRep_PlayerState()
 	
 	// Init ability actor info for the client
 	InitAbilityActorInfo();
+}
+
+void AAuraCharacter::SetupStimulusSource()
+{
+	check(StimulusSource);
+	
+	StimulusSource->RegisterForSense(UAISense_Sight::StaticClass());
+	StimulusSource->RegisterForSense(UAISense_Hearing::StaticClass());
+	StimulusSource->RegisterWithPerceptionSystem();
 }
 
 int32 AAuraCharacter::GetActorLevel()

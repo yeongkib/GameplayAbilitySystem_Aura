@@ -20,4 +20,22 @@ public:
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UStateTreeAIComponent> StateTreeAIComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UAISenseConfig_Sight> SightConfig;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UAISenseConfig_Hearing> HearingConfig;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UAISenseConfig_Damage> DamageConfig;
+
+	void SetupPerceptionSystem();
+
+	void HandleSensedSight(const FActorPerceptionUpdateInfo& UpdateInfo);
+	void HandleSensedHearing(const FActorPerceptionUpdateInfo& UpdateInfo);
+	void HandleSensedDamage(const FActorPerceptionUpdateInfo& UpdateInfo);
+	
+	UFUNCTION()
+	void OnPerceptionInfoUpdated(const FActorPerceptionUpdateInfo& UpdateInfo);
 };
