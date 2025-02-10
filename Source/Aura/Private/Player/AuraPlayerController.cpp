@@ -82,12 +82,19 @@ void AAuraPlayerController::SetupInputComponent()
 }
 
 #pragma region IGenericTeamAgentInterface
+void AAuraPlayerController::SetGenericTeamId(const EAuraGameTeam NewTeamId)
+{
+	TeamId = NewTeamId;
+}
+
 void AAuraPlayerController::SetGenericTeamId(const FGenericTeamId& NewTeamId)
 {
-	if (TeamId != NewTeamId)
-	{
-		TeamId = NewTeamId;
-	}
+	TeamId = static_cast<EAuraGameTeam>(NewTeamId.GetId());
+}
+
+FGenericTeamId AAuraPlayerController::GetGenericTeamId() const
+{
+	return static_cast<uint8>(TeamId);
 }
 #pragma endregion
 

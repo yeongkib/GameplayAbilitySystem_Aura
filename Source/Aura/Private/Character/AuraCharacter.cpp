@@ -6,9 +6,6 @@
 #include "AbilitySystemComponent.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Perception/AIPerceptionStimuliSourceComponent.h"
-#include "Perception/AISense_Hearing.h"
-#include "Perception/AISense_Sight.h"
 #include "Player/AuraPlayerController.h"
 #include "Player/AuraPlayerState.h"
 #include "UI/HUD/AuraHUD.h"
@@ -23,23 +20,6 @@ AAuraCharacter::AAuraCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationRoll = false;
 	bUseControllerRotationYaw = false;
-	
-	StimulusSource = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>(TEXT("Stimulus"));
-}
-
-void AAuraCharacter::PostInitializeComponents()
-{
-	Super::PostInitializeComponents();
-	SetupStimulusSource();
-}
-
-void AAuraCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
-{
-	Super::EndPlay(EndPlayReason);
-	if (StimulusSource != nullptr)
-	{
-		StimulusSource->UnregisterFromPerceptionSystem();
-	}
 }
 
 void AAuraCharacter::PossessedBy(AController* NewController)
@@ -48,7 +28,7 @@ void AAuraCharacter::PossessedBy(AController* NewController)
 
 	if (IGenericTeamAgentInterface* ControllerAsTeamProvider = Cast<IGenericTeamAgentInterface>(NewController))
 	{
-		TeamId = ControllerAsTeamProvider->GetGenericTeamId();
+		TeamId = static_cast<EAuraGameTeam>(ControllerAsTeamProvider->GetGenericTeamId().GetId());
 	}
 	// Init ability actor info for the server
 	InitAbilityActorInfo();
@@ -70,14 +50,19 @@ void AAuraCharacter::OnRep_PlayerState()
 	InitAbilityActorInfo();
 }
 
-void AAuraCharacter::SetupStimulusSource()
+FGenericTeamId AAuraCharacter::GetGenericTeamId() const
 {
-	check(StimulusSource);
-	
-	StimulusSource->RegisterForSense(UAISense_Sight::StaticClass());
-	StimulusSource->RegisterForSense(UAISense_Hearing::StaticClass());
-	StimulusSource->RegisterWithPerceptionSystem();
+	return static_cast<uint8>(TeamId);
 }
+
+// void AAuraCharacter::SetupStimulusSource()
+// {
+// 	check(StimulusSource);
+// 	
+// 	StimulusSource->RegisterForSense(UAISense_Sight::StaticClass());
+// 	StimulusSource->RegisterForSense(UAISense_Hearing::StaticClass());
+// 	StimulusSource->RegisterWithPerceptionSystem();
+// }
 
 int32 AAuraCharacter::GetActorLevel()
 {

@@ -7,6 +7,7 @@
 #include "GameplayTagContainer.h"
 #include "GenericTeamAgentInterface.h"
 #include "AbilitySystem/AuraAttributeSet.h"
+#include "Game/AuraTeamAttitude.h"
 #include "AuraPlayerController.generated.h"
 
 class UDamageTextComponent;
@@ -39,11 +40,12 @@ protected:
 
 #pragma region IGenericTeamAgentInterface
 public:
+	void SetGenericTeamId(const EAuraGameTeam NewTeamId);
 	virtual void SetGenericTeamId(const FGenericTeamId& NewTeamId) override;
-	virtual FGenericTeamId GetGenericTeamId() const override { return TeamId; }
+	virtual FGenericTeamId GetGenericTeamId() const override;
  
 private:
-	FGenericTeamId TeamId;
+	EAuraGameTeam TeamId;
 #pragma endregion
 
 private:

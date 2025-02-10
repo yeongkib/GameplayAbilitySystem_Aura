@@ -11,9 +11,24 @@
 AAuraAIController::AAuraAIController(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-	SetGenericTeamId(FGenericTeamId(2));
+	SetGenericTeamId(EAuraGameTeam::Enemy);
 	StateTreeAIComponent = CreateDefaultSubobject<UStateTreeAIComponent>("StateTreeAIComponent");
 	SetupPerceptionSystem();
+}
+
+void AAuraAIController::SetGenericTeamId(const EAuraGameTeam InTeamID)
+{
+	AITeamID = InTeamID;
+}
+
+void AAuraAIController::SetGenericTeamId(const FGenericTeamId& InTeamID)
+{
+	AITeamID = static_cast<EAuraGameTeam>(InTeamID.GetId());
+}
+
+FGenericTeamId AAuraAIController::GetGenericTeamId() const
+{
+	return static_cast<uint8>(AITeamID);
 }
 
 void AAuraAIController::SetupPerceptionSystem()
